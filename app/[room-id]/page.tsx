@@ -24,7 +24,10 @@ export default function Room() {
       <h1>VÄLKOMMEN</h1>
 
       <p>{roomCode}</p>
-      <Button onClick={() => client.unlockedKey("vampyr", 1)} text="SEND" />
+      <Button
+        onClick={() => client.unlockedKey("siri & anton", 1)}
+        text="SEND"
+      />
     </div>
   );
 }
