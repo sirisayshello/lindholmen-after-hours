@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Button } from "../components/Button/Button";
 import { useGame } from "../hooks/useGame";
+import Image from "next/image";
 
 export default function Create() {
   const router = useRouter();
@@ -27,13 +28,23 @@ export default function Create() {
   }
 
   return (
-    <div>
-      <h1>create game</h1>
+    <main className="flex min-h-svh flex-col items-center justify-center p-8">
+      <div className="w-full max-w-xl flex flex-col gap-8 items-center font-mono text-sm">
+        <h1>Välj svårighetsgrad</h1>
 
-      <p>{roomCode}</p>
+        <Image src="/enkel.svg" width={300} height={60} alt="" />
+        <Image src="/mellan.svg" width={285} height={60} alt="" />
+        <Image src="/tuff.svg" width={285} height={60} alt="" />
 
-      <Button onClick={() => SetHostAndCreateGame()} text="Enter room" />
-    </div>
+        <p>
+          Svårighetsgrad LÄTT passar för fegisar. Du har 40 minuter på dig fram
+          till undergång eller överlevnad.
+        </p>
+        {/* <p>{roomCode}</p> */}
+
+        <Button onClick={() => SetHostAndCreateGame()} text="Fortsätt" />
+      </div>
+    </main>
   );
   //() => router.push(`/${roomCode}`)
 }
