@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { PopupProps } from "../Map/Map";
 
-export const Popup = () => {
-  const [isVisible, setIsVisible] = useState(true);
-
+export const Popup = ({ isVisible, setIsVisible }: PopupProps) => {
   if (!isVisible) return null;
 
   return (
