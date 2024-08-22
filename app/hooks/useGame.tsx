@@ -9,6 +9,8 @@ import uniqBy from "lodash/uniqBy";
 
 export type Teams = "Vampyrerna" | "Vampyrjägarna";
 
+type CompletedQuest = { id: number };
+
 export type Player = {
   name: string;
   team: Teams;
@@ -27,6 +29,12 @@ type GameContext = {
   setEndTime: (value: number) => void;
   humanScore: number;
   vampireScore: number;
+  completeQuest: (team: Teams, questId: number) => void;
+  setPlayerTeam: (team: Teams) => void;
+  playerTeam: Teams | undefined;
+  hasCompletedQuest: (id: number) => boolean;
+  endGame: (team: Teams) => void;
+  winner: Teams | undefined;
 };
 
 const GameContext = createContext<GameContext>({
@@ -47,14 +55,34 @@ const GameContext = createContext<GameContext>({
   },
   humanScore: 0,
   vampireScore: 0,
+  completeQuest: function (team: Teams, questId: number): void {
+    throw new Error("Function not implemented.");
+  },
+  setPlayerTeam: function (team: Teams): void {
+    throw new Error("Function not implemented.");
+  },
+  playerTeam: undefined,
+  hasCompletedQuest: function (id: number): boolean {
+    throw new Error("Function not implemented.");
+  },
+  endGame: function (team: Teams): void {
+    throw new Error("Function not implemented.");
+  },
+  winner: undefined,
 });
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [players, setPlayers] = useState<Player[]>([]);
   const [isHost, setIsHost] = useState(false);
   const [endTime, setEndTime] = useState<number>();
-  const [humanScore, setHumanScore] = useState(0);
-  const [vampireScore, setVampireScore] = useState(0);
+  const [humanCompletedQuests, setHumanCompletedQuests] = useState<
+    CompletedQuest[]
+  >([]);
+  const [vampireCompletedQuests, setVampireCompletedQuests] = useState<
+    CompletedQuest[]
+  >([]);
+  const [playerTeam, setPlayerTeam] = useState<Teams>();
+  const [winner, setWinner] = useState<Teams>();
 
   useEffect(() => {
     if (window !== undefined) {
@@ -78,6 +106,25 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     setPlayers([...uniquePlayers]);
   };
 
+  const completeQuest = (team: Teams, questId: number) => {
+    if (team === "Vampyrerna") {
+      setVampireCompletedQuests([...vampireCompletedQuests, { id: questId }]);
+      return;
+    }
+    setHumanCompletedQuests([...humanCompletedQuests, { id: questId }]);
+  };
+
+  const hasCompletedQuest = (questId: number): boolean => {
+    if (playerTeam === "Vampyrerna") {
+      return vampireCompletedQuests.some((quest) => quest.id === questId);
+    }
+    return humanCompletedQuests.some((quest) => quest.id === questId);
+  };
+
+  const endGame = (team: Teams) => {
+    setWinner(team);
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -88,8 +135,14 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
         updatePlayers,
         endTime,
         setEndTime,
-        humanScore,
-        vampireScore,
+        humanScore: humanCompletedQuests.length,
+        vampireScore: vampireCompletedQuests.length,
+        completeQuest,
+        playerTeam,
+        setPlayerTeam,
+        hasCompletedQuest,
+        endGame,
+        winner,
       }}
     >
       {children}

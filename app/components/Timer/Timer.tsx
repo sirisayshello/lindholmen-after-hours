@@ -10,7 +10,7 @@ export const Timer = ({ endTime }: { endTime: number | undefined }) => {
     }, 1000);
 
     return clearInterval(interval);
-  }, []);
+  }, [endTime]);
 
   const timeLeft = (endTime ?? now.getTime()) - now.getTime();
   const hours = Math.floor(

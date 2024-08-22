@@ -3,6 +3,9 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../Button/Button";
+import { useRoomId } from "@/app/hooks/useRoomId";
+import { useGame } from "@/app/hooks/useGame";
+import { useSupabaseClient } from "@/app/hooks/useSupabaseClient";
 
 type ThirdQProps = {
   thirdQIsVisible: boolean;
@@ -12,10 +15,14 @@ type ThirdQProps = {
 export const ThirdQuest = ({ thirdQIsVisible, close }: ThirdQProps) => {
   const [thirdAnswer, setThirdAnswer] = useState("");
   const answer = "blache";
+  const roomId = useRoomId();
+  const client = useSupabaseClient(roomId);
+  const game = useGame();
 
   const checkThirdAnswer = () => {
-    if (thirdAnswer === answer) {
-      // TODO: Sätt plus för laget
+    if (thirdAnswer.toLowerCase() === answer) {
+      client.completeQuest(game.playerTeam!, 3);
+      close();
     }
   };
   if (!thirdQIsVisible) return null;

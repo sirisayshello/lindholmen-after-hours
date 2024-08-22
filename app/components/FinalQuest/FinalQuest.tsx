@@ -2,30 +2,37 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { FinalQProps } from "../Map/Map";
-import { Button } from "../Button/Button";
 
-export const FinalQuest = ({
-  finalQIsVisible,
-  setFinalQIsVisible,
-}: FinalQProps) => {
-  if (!finalQIsVisible) return null;
+import { Button } from "../Button/Button";
+import { useGame } from "@/app/hooks/useGame";
+import { useRoomId } from "@/app/hooks/useRoomId";
+import { useSupabaseClient } from "@/app/hooks/useSupabaseClient";
+
+type FinalQProps = {
+  finalQIsVisible: boolean;
+  close: () => void;
+};
+
+export const FinalQuest = ({ finalQIsVisible, close }: FinalQProps) => {
   const [finalAnswer, setFinalAnswer] = useState("");
-  const answer = "brun";
+  const answer = ["brun", "brunt"];
+  const roomId = useRoomId();
+
+  const client = useSupabaseClient(roomId);
 
   const checkFinalAnswer = () => {
-    if (finalAnswer === answer) {
-      // TODO: Sätt plus för laget
+    if (answer.includes(finalAnswer.toLowerCase())) {
+      console.log("correct");
+
+      client.endGame();
     }
   };
+  if (!finalQIsVisible) return null;
   return (
     <>
       <div className="absolute top-6 flex flex-col items-center">
         <div className="w-11/12 h-screen relative z-30 bg-slate-500">
-          <div
-            className="absolute top-2 right-2"
-            onClick={() => setFinalQIsVisible(false)}
-          >
+          <div className="absolute top-2 right-2" onClick={close}>
             <Image src="/x.svg" width={26} height={26} alt="close" />
           </div>
           <h1 className="w-full text-center text-3xl pt-3">Överlevnad</h1>

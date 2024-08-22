@@ -7,11 +7,11 @@ import { Map } from "../components/Map/Map";
 import { PlayerForm } from "../components/PlayerForm/PlayerForm";
 import { useGame } from "../hooks/useGame";
 import { ViewState } from "../page";
+import { useRoomId } from "../hooks/useRoomId";
 
 export default function Room() {
   const game = useGame();
-  const path = usePathname();
-  const roomCode = path.slice(1);
+  const roomCode = useRoomId();
 
   const [viewState, setViewState] = useState<ViewState>("setup");
 

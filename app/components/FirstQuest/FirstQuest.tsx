@@ -4,6 +4,10 @@ import Image from "next/image";
 import { useState } from "react";
 
 import { Button } from "../Button/Button";
+import { useSupabaseClient } from "@/app/hooks/useSupabaseClient";
+import { useGame } from "@/app/hooks/useGame";
+import { useRoomId } from "@/app/hooks/useRoomId";
+import { log } from "console";
 
 type FirstQProps = {
   firstQIsVisible: boolean;
@@ -13,10 +17,14 @@ type FirstQProps = {
 export const FirstQuest = ({ firstQIsVisible, close }: FirstQProps) => {
   const [firstAnswer, setFirstAnswer] = useState("");
   const answer = "19800902";
+  const roomId = useRoomId();
+  const game = useGame();
+  const client = useSupabaseClient(roomId);
 
   const checkFirstAnswer = () => {
     if (firstAnswer === answer) {
-      // TODO: Sätt plus för laget
+      client.completeQuest(game.playerTeam!, 1);
+      close();
     }
   };
   if (!firstQIsVisible) {
@@ -43,6 +51,7 @@ export const FirstQuest = ({ firstQIsVisible, close }: FirstQProps) => {
               sifferkombination gömmer sig i mellanrummen. Hur nära vågar du gå?
             </p>
           </div>
+
           <input
             className="text-black"
             onChange={(e) => setFirstAnswer(e.target.value)}
@@ -53,12 +62,6 @@ export const FirstQuest = ({ firstQIsVisible, close }: FirstQProps) => {
             maxLength={12}
           ></input>
           <Button onClick={() => checkFirstAnswer()} text="Svara" />
-          {/* <button
-            className="absolute bottom-3 right-2 border rounded-md drop-shadow-sm"
-            onClick={() => setFirstQIsVisible(false)}
-          >
-            Okej
-          </button> */}
         </div>
       </div>
     </>

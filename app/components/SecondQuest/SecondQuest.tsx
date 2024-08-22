@@ -3,6 +3,9 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../Button/Button";
+import { useRoomId } from "@/app/hooks/useRoomId";
+import { useSupabaseClient } from "@/app/hooks/useSupabaseClient";
+import { useGame } from "@/app/hooks/useGame";
 
 type SecondQProps = {
   secondQIsVisible: boolean;
@@ -12,10 +15,14 @@ type SecondQProps = {
 export const SecondQuest = ({ secondQIsVisible, close }: SecondQProps) => {
   const [secondAnswer, setSecondAnswer] = useState("");
   const answer = "kackerlacka";
+  const roomId = useRoomId();
+  const client = useSupabaseClient(roomId);
+  const game = useGame();
 
   const checkSecondAnswer = () => {
-    if (secondAnswer === answer) {
-      // TODO: Sätt plus för laget
+    if (secondAnswer.toLowerCase() === answer) {
+      client.completeQuest(game.playerTeam!, 2);
+      close();
     }
   };
   if (!secondQIsVisible) return null;
@@ -39,6 +46,7 @@ export const SecondQuest = ({ secondQIsVisible, close }: SecondQProps) => {
               för skugga som skymtar på den solfärgade fasaden?
             </p>
           </div>
+
           <input
             className="text-black"
             onChange={(e) => setSecondAnswer(e.target.value.toLowerCase())}
@@ -49,6 +57,7 @@ export const SecondQuest = ({ secondQIsVisible, close }: SecondQProps) => {
             maxLength={12}
           ></input>
           <Button onClick={() => checkSecondAnswer()} text="Svara" />
+
           {/* <button
             className="absolute bottom-3 right-2 border rounded-md drop-shadow-sm"
             onClick={() => setSecondQIsVisible(false)}
