@@ -16,8 +16,18 @@ export default function Room() {
   const roomCode = path.slice(1);
   const client = useSupabaseClient(roomCode);
   const [viewState, setViewState] = useState<ViewState>("setup");
+  const isHost = sessionStorage.getItem("host");
+  const gameStart = sessionStorage.getItem("game_start");
 
-  useEffect(() => {}, [players]);
+  if (isHost) {
+    console.log("i am host");
+  }
+
+  useEffect(() => {
+    if (gameStart) {
+      setViewState("map");
+    }
+  }, [gameStart]);
 
   return (
     <main className="flex min-h-svh flex-col items-center justify-center p-8">
@@ -41,10 +51,15 @@ export default function Room() {
 
       <Map viewState={viewState} setViewState={setViewState} />
 
-      <Button
-        onClick={() => client.unlockedKey("siri & anton", 1)}
-        text="SEND"
-      />
+      {isHost && (
+        <Button
+          //onClick={() => client.unlockedKey("siri & anton", 1)}
+          // onClick={() => client.startGame("map")}
+          onClick={() => setViewState("map")}
+          text="SEND"
+        />
+      )}
+      {gameStart && <div>hejhej</div>}
     </main>
   );
 }
