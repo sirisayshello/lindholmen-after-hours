@@ -1,33 +1,36 @@
 "use client";
 
-import { useSearchParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Button } from "../components/Button/Button";
 import { useEffect, useState } from "react";
 import { useSupabaseClient } from "../hooks/useSupabaseClient";
+import { Map } from "../components/Map/Map";
+import { useGame } from "../hooks/useGame";
 
 export default function Room() {
+  const game = useGame();
   const path = usePathname();
   const roomCode = path.slice(1);
-  // const searchParams = useSearchParams();
-  // const [roomCode, setRoomCode] = useState("");
   const client = useSupabaseClient(roomCode);
-  console.log(client);
-
-  // useEffect(() => {
-  //   if (searchParams.has("room-id")) {
-  //     setRoomCode(searchParams.get("room-id") ?? "");
-  //   }
-  // }, [searchParams]);
+  const [viewState, setViewState] = useState("map");
 
   return (
-    <div>
+    <main className="flex min-h-svh flex-col items-center justify-center p-8">
       <h1>VÄLKOMMEN</h1>
-
       <p>{roomCode}</p>
+
+      <div>
+        {game.players.map((player) => (
+          <p>{player.name}</p>
+        ))}
+      </div>
+
+      <Map viewState={viewState} setViewState={setViewState} />
+
       <Button
         onClick={() => client.unlockedKey("siri & anton", 1)}
         text="SEND"
       />
-    </div>
+    </main>
   );
 }
