@@ -14,10 +14,10 @@ type PlayerJoinedPayload = {
   team: Teams;
 };
 
-type PlayerReadyPayload = {
-  name: string;
-  team: Teams;
-};
+// type PlayerReadyPayload = {
+//   name: string;
+//   team: Teams;
+// };
 
 type StartingGamePayload = {
   viewState: ViewState;
@@ -41,8 +41,8 @@ export const useSupabaseClient = (roomId: string) => {
   function startingGame(payload: StartingGamePayload) {
     console.log(payload.viewState);
     sessionStorage.setItem("game_start", "true");
+    game.addGameViewState({ gameViewState: payload.viewState });
   }
-
   function handlePlayerJoined(payload: PlayerJoinedPayload) {
     // handle the join
     console.log(payload);
@@ -55,6 +55,12 @@ export const useSupabaseClient = (roomId: string) => {
       isMe: false,
     });
   }
+
+  // function startGameView(payload: StartingGamePayload) {
+  //   // handle the join
+  //   console.log(payload);
+
+  // }
 
   // Subscribe to the Channel
   channel
