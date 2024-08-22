@@ -11,16 +11,19 @@ export default function Join() {
   const router = useRouter();
 
   return (
-    <div>
-      <label htmlFor="roomId">Room id</label>
-      <input
-        onChange={(e) => setRoomId(e.target.value)}
-        value={roomId}
-        id="roomId"
-        type="text"
-        maxLength={4}
-      ></input>
-      <Button onClick={() => router.push(`/${roomId}`)} text="JOIN GAME" />
-    </div>
+    <main className="flex min-h-svh flex-col items-center justify-center p-8">
+      <div className="w-full max-w-xl flex flex-col gap-8 items-center font-mono text-sm">
+        <label htmlFor="roomId">Skriv in spelkod</label>
+        <input
+          className="text-black"
+          onChange={(e) => setRoomId(e.target.value)}
+          value={roomId}
+          id="roomId"
+          type="text"
+          maxLength={4}
+        ></input>
+        <Button onClick={() => router.push(`/${roomId}`)} text="Fortsätt" />
+      </div>
+    </main>
   );
 }
