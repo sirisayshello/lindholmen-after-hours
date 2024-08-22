@@ -47,6 +47,7 @@ export const PlayerForm = ({
           <div className="flex flex-col">
             <label htmlFor="name">Name</label>
             <input
+              className="text-black"
               onChange={(e) => setName(e.target.value)}
               value={name}
               id="name"
