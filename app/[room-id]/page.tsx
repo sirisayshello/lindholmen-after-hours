@@ -7,17 +7,12 @@ import { Map } from "../components/Map/Map";
 import { PlayerForm } from "../components/PlayerForm/PlayerForm";
 import { useGame } from "../hooks/useGame";
 import { ViewState } from "../page";
+import { useRoomId } from "../hooks/useRoomId";
 
 export default function Room() {
-  const game = useGame();
-  const path = usePathname();
-  const roomCode = path.slice(1);
+  const roomCode = useRoomId();
 
   const [viewState, setViewState] = useState<ViewState>("setup");
-
-  if (game.isHost) {
-    console.log("i am host");
-  }
 
   return (
     <main className="flex min-h-svh flex-col items-center justify-center p-8">
@@ -26,7 +21,7 @@ export default function Room() {
         setViewState={setViewState}
         roomId={roomCode}
       />
-      <Map viewState={viewState} setViewState={setViewState} />
+
       <Lobby
         viewState={viewState}
         setViewState={setViewState}

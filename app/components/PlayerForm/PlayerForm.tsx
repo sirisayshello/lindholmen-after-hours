@@ -30,6 +30,9 @@ export const PlayerForm = ({
   };
 
   const joinGame = () => {
+    if (!name) {
+      return;
+    }
     client.sendJoined(name, team);
     game.addPlayer({
       name: name,
@@ -53,6 +56,7 @@ export const PlayerForm = ({
               className="text-black"
               onChange={(e) => setName(e.target.value)}
               value={name}
+              required
               id="name"
               type="text"
               maxLength={12}

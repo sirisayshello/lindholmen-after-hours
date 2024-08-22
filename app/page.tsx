@@ -35,13 +35,18 @@ export default function Home() {
       )}
 
       {viewState === "choose" && (
-        <>
+        <div className="flex flex-col gap-9">
           <Button
+            className="px-9"
             onClick={() => router.push("/create")}
-            text="START NEW GAME"
+            text="Skapa spel"
           />
-          <Button onClick={() => router.push("/join")} text="JOIN GAME" />
-        </>
+          <Button
+            className="px-9"
+            onClick={() => router.push("/join")}
+            text="Joina spel"
+          />
+        </div>
       )}
     </main>
   );

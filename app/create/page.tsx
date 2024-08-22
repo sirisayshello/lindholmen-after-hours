@@ -7,7 +7,16 @@ import Image from "next/image";
 
 export default function Create() {
   const router = useRouter();
-  let roomCode = Math.floor(Math.random() * 10000);
+  let roomCode = Math.floor(Math.random() * 10000).toString();
+
+  if (roomCode.length === 1) {
+    roomCode = "000" + roomCode;
+  } else if (roomCode.length === 2) {
+    roomCode = "00" + roomCode;
+  } else if (roomCode.length === 3) {
+    roomCode = "0" + roomCode;
+  }
+
   const game = useGame();
 
   function SetHostAndCreateGame() {

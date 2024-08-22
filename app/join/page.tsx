@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { Button } from "../components/Button/Button";
 import { useRouter } from "next/navigation";
-import { useSupabaseClient } from "../hooks/useSupabaseClient";
-import { useGame } from "../hooks/useGame";
 
 export default function Join() {
   const [roomId, setRoomId] = useState("");
