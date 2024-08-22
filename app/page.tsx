@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { GameIntro } from "./components/GameIntro/GameIntro";
 import { DifficultySetting } from "./components/DifficultySetting/DifficultySetting";
+import { text } from "stream/consumers";
 
 export type ViewState =
   | "landing"
@@ -13,7 +14,8 @@ export type ViewState =
   | "joinSetup"
   | "setup"
   | "map"
-  | "lobby";
+  | "lobby"
+  | "choose";
 
 export default function Home() {
   const router = useRouter();
@@ -21,10 +23,31 @@ export default function Home() {
 
   return (
     <main className="flex min-h-svh flex-col items-center justify-center p-8">
-      <GameIntro viewState={viewState} setViewState={setViewState} />
-      <DifficultySetting viewState={viewState} setViewState={setViewState} />
-      <Button onClick={() => router.push("/create")} text="START NEW GAME" />
-      <Button onClick={() => router.push("/join")} text="JOIN GAME" />
+      {viewState === "landing" && (
+        <>
+          <GameIntro viewState={viewState} setViewState={setViewState} />
+          <DifficultySetting
+            viewState={viewState}
+            setViewState={setViewState}
+          />
+          <Button text="fortsätt" onClick={() => setViewState("choose")} />
+        </>
+      )}
+
+      {viewState === "choose" && (
+        <>
+          <Button
+            onClick={() => setViewState("difficultySetting")}
+            text="START NEW GAME"
+          />
+          <Button onClick={() => setViewState("joinSetup")} text="JOIN GAME" />
+          <Button
+            onClick={() => router.push("/create")}
+            text="START NEW GAME"
+          />
+          <Button onClick={() => router.push("/join")} text="JOIN GAME" />
+        </>
+      )}
     </main>
   );
 }

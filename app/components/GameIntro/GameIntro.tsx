@@ -33,14 +33,6 @@ export const GameIntro = ({ viewState, setViewState }: GameIntroProps) => {
             sanning. De har kommit till Lindholmen och de verkar hungriga.
           </p>
           <div className="flex w-full justify-evenly">
-            <Button
-              onClick={() => setViewState("difficultySetting")}
-              text="START NEW GAME"
-            />
-            <Button
-              onClick={() => setViewState("joinSetup")}
-              text="JOIN GAME"
-            />
           </div>
         </div>
       )}
