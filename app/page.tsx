@@ -37,11 +37,6 @@ export default function Home() {
       {viewState === "choose" && (
         <>
           <Button
-            onClick={() => setViewState("difficultySetting")}
-            text="START NEW GAME"
-          />
-          <Button onClick={() => setViewState("joinSetup")} text="JOIN GAME" />
-          <Button
             onClick={() => router.push("/create")}
             text="START NEW GAME"
           />

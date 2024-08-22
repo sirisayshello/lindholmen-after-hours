@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`text-white bg-[url('/background.png')] ${inter.className}`}
+        className={`text-white bg-[url('/background.png')] ${inter.className} bg-cover`}
       >
         <Providers>{children}</Providers>
       </body>

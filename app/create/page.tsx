@@ -10,20 +10,8 @@ export default function Create() {
   let roomCode = Math.floor(Math.random() * 10000);
   const game = useGame();
 
-  // const joinGame = () => {
-  //   client.sendJoined(name, team);
-  //   game.addPlayer({
-  //     name: name,
-  //     team: team,
-  //     isReady: false,
-  //     isHost: false,
-  //     isMe: true,
-  //   });
-  //   setViewState("lobby");
-  // };
-
   function SetHostAndCreateGame() {
-    sessionStorage.setItem("host", "true");
+    game.setToHost();
     router.push(`/${roomCode}`);
   }
 
@@ -40,11 +28,9 @@ export default function Create() {
           Svårighetsgrad LÄTT passar för fegisar. Du har 40 minuter på dig fram
           till undergång eller överlevnad.
         </p>
-        {/* <p>{roomCode}</p> */}
 
-        <Button onClick={() => SetHostAndCreateGame()} text="Fortsätt" />
+        <Button onClick={SetHostAndCreateGame} text="Fortsätt" />
       </div>
     </main>
   );
-  //() => router.push(`/${roomCode}`)
 }
