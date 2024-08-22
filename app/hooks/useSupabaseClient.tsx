@@ -10,6 +10,7 @@ type UnlockedKeyPayload = {
 
 type PlayerJoinedPayload = {
   name: string;
+  team: Teams;
 };
 
 type PlayerReadyPayload = {
@@ -39,7 +40,7 @@ export const useSupabaseClient = (roomId: string) => {
     game.addPlayer({
       name: payload.name,
       isReady: false,
-      team: "tbd",
+      team: payload.team,
       isHost: false,
       isMe: false,
     });
@@ -62,11 +63,11 @@ export const useSupabaseClient = (roomId: string) => {
 
   // Join a room/topic. Can be anything except for 'realtime'.
 
-  const sendJoined = (name: string) => {
+  const sendJoined = (name: string, team: Teams) => {
     channel.send({
       type: "broadcast",
       event: "player_joined",
-      payload: { name },
+      payload: { name, team },
     });
   };
 

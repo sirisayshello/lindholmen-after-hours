@@ -9,20 +9,6 @@ import { useGame } from "../hooks/useGame";
 export default function Join() {
   const [roomId, setRoomId] = useState("");
   const router = useRouter();
-  const client = useSupabaseClient(roomId);
-  const game = useGame();
-
-  const joinGame = () => {
-    client.sendJoined("Siri");
-    game.addPlayer({
-      name: "Siri",
-      team: "tbd",
-      isReady: false,
-      isHost: false,
-      isMe: true,
-    });
-    router.push(`/${roomId}`);
-  };
 
   return (
     <div>
@@ -34,7 +20,7 @@ export default function Join() {
         type="text"
         maxLength={4}
       ></input>
-      <Button onClick={joinGame} text="JOIN GAME" />
+      <Button onClick={() => router.push(`/${roomId}`)} text="JOIN GAME" />
     </div>
   );
 }
