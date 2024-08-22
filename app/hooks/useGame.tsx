@@ -108,7 +108,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const setToHost = () => {
-    setIsHost(isHost);
+    setIsHost(true);
     sessionStorage.setItem("host", "true");
   };
 
