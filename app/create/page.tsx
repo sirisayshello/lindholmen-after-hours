@@ -21,13 +21,19 @@ export default function Create() {
   //   setViewState("lobby");
   // };
 
+  function SetHostAndCreateGame() {
+    sessionStorage.setItem("host", "true");
+    router.push(`/${roomCode}`);
+  }
+
   return (
     <div>
       <h1>create game</h1>
 
       <p>{roomCode}</p>
 
-      <Button onClick={() => router.push(`/${roomCode}`)} text="Enter room" />
+      <Button onClick={() => SetHostAndCreateGame()} text="Enter room" />
     </div>
   );
+  //() => router.push(`/${roomCode}`)
 }

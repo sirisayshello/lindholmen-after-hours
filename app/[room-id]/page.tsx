@@ -16,6 +16,11 @@ export default function Room() {
   const roomCode = path.slice(1);
   const client = useSupabaseClient(roomCode);
   const [viewState, setViewState] = useState<ViewState>("setup");
+  const isHost = sessionStorage.getItem("host");
+
+  if (isHost) {
+    console.log("i am host");
+  }
 
   useEffect(() => {}, [players]);
 
