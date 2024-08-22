@@ -28,7 +28,9 @@ export const FinalQuest = ({
           >
             <Image src="/x.svg" width={26} height={26} alt="close" />
           </div>
-          <h1 className="text-center text-3xl py-3">Uppdrag</h1>
+          <h1 className="w-full text-center text-3xl pt-3">Överlevnad</h1>
+          <h1 className="w-full text-center text-3xl ">VS</h1>
+          <h1 className="w-full text-center text-3xl pb-3">Undergång</h1>
           <div className="px-5">
             <Image
               src="/final_quest.jpeg"
