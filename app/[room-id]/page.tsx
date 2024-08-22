@@ -43,8 +43,9 @@ export default function Room() {
       <div>
         {players.map((player) => (
           <>
-            <p>{player.name}</p>
-            <p>{player.team}</p>
+            <p>
+              {player.name} har gått med {player.team}
+            </p>
           </>
         ))}
       </div>
@@ -52,12 +53,15 @@ export default function Room() {
       <Map viewState={viewState} setViewState={setViewState} />
 
       {isHost && (
-        <Button
-          //onClick={() => client.unlockedKey("siri & anton", 1)}
-          // onClick={() => client.startGame("map")}
-          onClick={() => setViewState("map")}
-          text="SEND"
-        />
+        <>
+          <h1>När samtliga spelare är redo, tryck för att starta spelet</h1>
+          <Button
+            //onClick={() => client.unlockedKey("siri & anton", 1)}
+            // onClick={() => client.startGame("map")}
+            onClick={() => setViewState("map")}
+            text="Starta Spel"
+          />
+        </>
       )}
       {gameStart && <div>hejhej</div>}
     </main>
