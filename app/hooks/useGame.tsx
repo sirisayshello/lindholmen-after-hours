@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
-export type Teams = "vampires" | "humans";
+export type Teams = "Vampyrerna" | "Vampyrjägarna";
 
 export type Player = {
   name: string;
