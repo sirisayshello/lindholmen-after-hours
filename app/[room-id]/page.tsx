@@ -31,28 +31,35 @@ export default function Room() {
 
   return (
     <main className="flex min-h-svh flex-col items-center justify-center p-8">
-      <h1>VÄLKOMMEN</h1>
-      <p>{roomCode}</p>
+      {viewState != "map" && (
+        <>
+          <h1>Spelkod:</h1>
+          <p>{roomCode}</p>
+        </>
+      )}
 
       <PlayerForm
         viewState={viewState}
         setViewState={setViewState}
         roomId={roomCode}
       />
-
-      <div>
-        {players.map((player) => (
-          <>
-            <p>
-              {player.name} har gått med {player.team}
-            </p>
-          </>
-        ))}
-      </div>
+      {viewState != "map" && (
+        <>
+          <div>
+            {players.map((player) => (
+              <>
+                <p>
+                  {player.name} har gått med {player.team}
+                </p>
+              </>
+            ))}
+          </div>
+        </>
+      )}
 
       <Map viewState={viewState} setViewState={setViewState} />
 
-      {isHost && (
+      {viewState != "map" && (
         <>
           <h1>När samtliga spelare är redo, tryck för att starta spelet</h1>
           <Button
@@ -63,7 +70,6 @@ export default function Room() {
           />
         </>
       )}
-      {gameStart && <div>hejhej</div>}
     </main>
   );
 }
