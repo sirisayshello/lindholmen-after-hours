@@ -1,10 +1,11 @@
 "use client";
 
+import { ViewState } from "@/app/page";
 import { Button } from "../Button/Button";
 
 type DifficultySettingProps = {
-  viewState: string;
-  setViewState: (value: string) => void;
+  viewState: ViewState;
+  setViewState: (value: ViewState) => void;
 };
 
 export const DifficultySetting = ({
