@@ -6,16 +6,22 @@ import { useState } from "react";
 import { GameIntro } from "./components/GameIntro/GameIntro";
 import { DifficultySetting } from "./components/DifficultySetting/DifficultySetting";
 
+export type ViewState =
+  | "landing"
+  | "difficultySetting"
+  | "inputHostName"
+  | "joinSetup";
+
 export default function Home() {
   const router = useRouter();
-  const [viewState, setViewState] = useState("landing");
+  const [viewState, setViewState] = useState<ViewState>("landing");
 
   return (
     <main className="flex min-h-svh flex-col items-center justify-center p-8">
       <GameIntro viewState={viewState} setViewState={setViewState} />
       <DifficultySetting viewState={viewState} setViewState={setViewState} />
-      {/* <Button onClick={() => router.push("/create")} text="START NEW GAME" />
-<Button onClick={() => router.push("/join")} text="JOIN GAME" /> */}
+      <Button onClick={() => router.push("/create")} text="START NEW GAME" />
+      <Button onClick={() => router.push("/join")} text="JOIN GAME" />
     </main>
   );
 }
