@@ -1,6 +1,6 @@
 import { supabase } from "@/supabase/client";
-import { Teams, useGame } from "./useGame";
-import { ViewState } from "../page";
+import { useRouter } from "next/navigation";
+import { Player, Teams, useGame } from "./useGame";
 
 type Events = "key_unlocked" | "join" | "start_game";
 
@@ -14,39 +14,36 @@ type PlayerJoinedPayload = {
   team: Teams;
 };
 
-type PlayerReadyPayload = {
-  name: string;
-  team: Teams;
-};
-
-type StartingGamePayload = {
-  viewState: ViewState;
+type GameStatePayload = {
+  players: Player[];
 };
 
 export const useSupabaseClient = (roomId: string) => {
   const game = useGame();
+  const router = useRouter();
 
   // Join a room/topic. Can be anything except for 'realtime'.
   const channel = supabase.channel(roomId);
-
-  // Simple function to log any messages we receive
-  function messageReceived(payload: unknown) {
-    console.log(payload);
-  }
 
   function keyUnlocked(payload: UnlockedKeyPayload) {
     console.log(`The ${payload.team} has unlocked key ${payload.keyId}`);
   }
 
-  function startingGame(payload: StartingGamePayload) {
-    console.log(payload.viewState);
-    sessionStorage.setItem("game_start", "true");
+  function navigateToPlay() {
+    router.push(`${roomId}/play`);
+  }
+
+  function updateGameState(payload: GameStatePayload) {
+    console.log(payload);
+
+    if (game.isHost) {
+      return;
+    }
+
+    game.updatePlayers(payload.players);
   }
 
   function handlePlayerJoined(payload: PlayerJoinedPayload) {
-    // handle the join
-    console.log(payload);
-
     game.addPlayer({
       name: payload.name,
       isReady: false,
@@ -54,20 +51,26 @@ export const useSupabaseClient = (roomId: string) => {
       isHost: false,
       isMe: false,
     });
+
+    if (game.isHost) {
+      sendGameState();
+    }
   }
 
   // Subscribe to the Channel
   channel
-    .on("broadcast", { event: "join" }, (payload) => messageReceived(payload))
+
     .on("broadcast", { event: "unlocked_key" }, (payload) =>
       keyUnlocked(payload.payload as unknown as UnlockedKeyPayload)
     )
-    .on("broadcast", { event: "start_game" }, (payload) =>
-      startingGame(payload.payload as unknown as StartingGamePayload)
-    )
+    .on("broadcast", { event: "start_game" }, () => navigateToPlay())
     .on("broadcast", { event: "player_joined" }, (payload) =>
       handlePlayerJoined(payload.payload as unknown as PlayerJoinedPayload)
     )
+    .on("broadcast", { event: "game_state" }, (payload) =>
+      updateGameState(payload.payload as unknown as GameStatePayload)
+    )
+
     .subscribe((status) => {
       if (status !== "SUBSCRIBED") {
         return null;
@@ -92,11 +95,19 @@ export const useSupabaseClient = (roomId: string) => {
     });
   };
 
-  const startGame = (viewState: string) => {
+  const startGame = () => {
     channel.send({
       type: "broadcast",
       event: "start_game",
-      payload: { viewState },
+    });
+    navigateToPlay();
+  };
+
+  const sendGameState = () => {
+    channel.send({
+      type: "broadcast",
+      event: "game_state",
+      payload: { players: game.players },
     });
   };
 
