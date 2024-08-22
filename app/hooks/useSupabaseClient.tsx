@@ -18,6 +18,10 @@ type GameStatePayload = {
   players: Player[];
 };
 
+type GamePlayPayload = {
+  endTime: number;
+};
+
 export const useSupabaseClient = (roomId: string) => {
   const game = useGame();
   const router = useRouter();
@@ -29,13 +33,15 @@ export const useSupabaseClient = (roomId: string) => {
     console.log(`The ${payload.team} has unlocked key ${payload.keyId}`);
   }
 
-  function navigateToPlay() {
+  function handlePlay(payload: GamePlayPayload) {
+    game.setEndTime(payload.endTime);
     router.push(`${roomId}/play`);
   }
 
   function updateGameState(payload: GameStatePayload) {
     console.log(payload);
 
+    // We have all players if we are the host
     if (game.isHost) {
       return;
     }
@@ -63,7 +69,9 @@ export const useSupabaseClient = (roomId: string) => {
     .on("broadcast", { event: "unlocked_key" }, (payload) =>
       keyUnlocked(payload.payload as unknown as UnlockedKeyPayload)
     )
-    .on("broadcast", { event: "start_game" }, () => navigateToPlay())
+    .on("broadcast", { event: "start_game" }, (payload) =>
+      handlePlay(payload.payload as unknown as GamePlayPayload)
+    )
     .on("broadcast", { event: "player_joined" }, (payload) =>
       handlePlayerJoined(payload.payload as unknown as PlayerJoinedPayload)
     )
@@ -96,11 +104,13 @@ export const useSupabaseClient = (roomId: string) => {
   };
 
   const startGame = () => {
+    const endTime = new Date().getTime() + 1000 * 60 * 40;
     channel.send({
       type: "broadcast",
       event: "start_game",
+      payload: { endTime },
     });
-    navigateToPlay();
+    handlePlay({ endTime });
   };
 
   const sendGameState = () => {

@@ -9,8 +9,8 @@ export const Popup = ({ isVisible, setIsVisible }: PopupProps) => {
 
   return (
     <>
-      <div className="absolute top-6 flex flex-col items-center">
-        <div className="w-11/12 h-screen relative z-30 bg-slate-500">
+      <div className="absolute top-36 flex flex-col items-center">
+        <div className="w-11/12 relative z-30 bg-slate-500 py-20">
           <div
             className="absolute top-2 right-2"
             onClick={() => setIsVisible(false)}

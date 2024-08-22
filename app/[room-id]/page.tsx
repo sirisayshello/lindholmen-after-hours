@@ -26,7 +26,7 @@ export default function Room() {
         setViewState={setViewState}
         roomId={roomCode}
       />
-      <Map viewState={viewState} setViewState={setViewState} />
+
       <Lobby
         viewState={viewState}
         setViewState={setViewState}

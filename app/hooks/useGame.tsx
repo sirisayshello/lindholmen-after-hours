@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import uniqBy from "lodash/uniqBy";
 
 export type Teams = "Vampyrerna" | "Vampyrjägarna";
@@ -17,6 +23,10 @@ type GameContext = {
   isHost: boolean;
   setToHost: () => void;
   updatePlayers: (players: Player[]) => void;
+  endTime: number | undefined;
+  setEndTime: (value: number) => void;
+  humanScore: number;
+  vampireScore: number;
 };
 
 const GameContext = createContext<GameContext>({
@@ -31,13 +41,26 @@ const GameContext = createContext<GameContext>({
   updatePlayers: function (players: Player[]): void {
     throw new Error("Function not implemented.");
   },
+  endTime: undefined,
+  setEndTime: function (value: number): void {
+    throw new Error("Function not implemented.");
+  },
+  humanScore: 0,
+  vampireScore: 0,
 });
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [players, setPlayers] = useState<Player[]>([]);
-  const [isHost, setIsHost] = useState(
-    sessionStorage.getItem("host") === "true"
-  );
+  const [isHost, setIsHost] = useState(false);
+  const [endTime, setEndTime] = useState<number>();
+  const [humanScore, setHumanScore] = useState(0);
+  const [vampireScore, setVampireScore] = useState(0);
+
+  useEffect(() => {
+    if (window !== undefined) {
+      setIsHost(sessionStorage.getItem("host") === "true");
+    }
+  }, []);
 
   const addPlayer = (player: Player) => {
     setPlayers([...players, player]);
@@ -57,7 +80,17 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <GameContext.Provider
-      value={{ players, addPlayer, isHost, setToHost, updatePlayers }}
+      value={{
+        players,
+        addPlayer,
+        isHost,
+        setToHost,
+        updatePlayers,
+        endTime,
+        setEndTime,
+        humanScore,
+        vampireScore,
+      }}
     >
       {children}
     </GameContext.Provider>

@@ -2,14 +2,15 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { FirstQProps } from "../Map/Map";
+
 import { Button } from "../Button/Button";
 
-export const FirstQuest = ({
-  firstQIsVisible,
-  setFirstQIsVisible,
-}: FirstQProps) => {
-  if (!firstQIsVisible) return null;
+type FirstQProps = {
+  firstQIsVisible: boolean;
+  close: () => void;
+};
+
+export const FirstQuest = ({ firstQIsVisible, close }: FirstQProps) => {
   const [firstAnswer, setFirstAnswer] = useState("");
   const answer = "19800902";
 
@@ -18,14 +19,14 @@ export const FirstQuest = ({
       // TODO: Sätt plus för laget
     }
   };
+  if (!firstQIsVisible) {
+    return null;
+  }
   return (
     <>
       <div className="absolute top-6 flex flex-col items-center">
         <div className="w-11/12 h-screen relative z-30 bg-slate-500">
-          <div
-            className="absolute top-2 right-2"
-            onClick={() => setFirstQIsVisible(false)}
-          >
+          <div className="absolute top-2 right-2" onClick={close}>
             <Image src="/x.svg" width={26} height={26} alt="close" />
           </div>
           <h1 className="text-center text-3xl py-3">Uppdrag</h1>

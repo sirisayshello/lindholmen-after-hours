@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { ThirdQProps } from "../Map/Map";
 import { Button } from "../Button/Button";
 
-export const ThirdQuest = ({
-  thirdQIsVisible,
-  setThirdQIsVisible,
-}: ThirdQProps) => {
-  if (!thirdQIsVisible) return null;
+type ThirdQProps = {
+  thirdQIsVisible: boolean;
+  close: () => void;
+};
+
+export const ThirdQuest = ({ thirdQIsVisible, close }: ThirdQProps) => {
   const [thirdAnswer, setThirdAnswer] = useState("");
   const answer = "blache";
 
@@ -18,14 +18,12 @@ export const ThirdQuest = ({
       // TODO: Sätt plus för laget
     }
   };
+  if (!thirdQIsVisible) return null;
   return (
     <>
       <div className="absolute top-6 flex flex-col items-center">
         <div className="w-11/12 h-screen relative z-30 bg-slate-500">
-          <div
-            className="absolute top-2 right-2"
-            onClick={() => setThirdQIsVisible(false)}
-          >
+          <div className="absolute top-2 right-2" onClick={close}>
             <Image src="/x.svg" width={26} height={26} alt="close" />
           </div>
           <h1 className="text-center text-3xl py-3">Uppdrag</h1>
