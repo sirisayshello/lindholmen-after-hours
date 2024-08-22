@@ -40,8 +40,6 @@ export const useSupabaseClient = (roomId: string) => {
   }
 
   function updateGameState(payload: GameStatePayload) {
-    console.log(payload);
-
     // We have all players if we are the host
     if (game.isHost) {
       return;

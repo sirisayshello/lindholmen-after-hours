@@ -9,10 +9,10 @@ export const Timer = ({ endTime }: { endTime: number | undefined }) => {
       setNow(new Date());
     }, 1000);
 
-    return clearInterval(interval);
-  }, [endTime]);
+    return () => clearInterval(interval);
+  }, []);
 
-  const timeLeft = (endTime ?? now.getTime()) - now.getTime();
+  const timeLeft = endTime! - now.getTime();
   const hours = Math.floor(
     (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
   );
