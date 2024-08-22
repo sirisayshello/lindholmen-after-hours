@@ -1,8 +1,10 @@
 "use client";
 
+import { ViewState } from "@/app/page";
+
 type MapProps = {
   viewState: string;
-  setViewState: (value: string) => void;
+  setViewState: (value: ViewState) => void;
 };
 
 export const Map = ({ viewState, setViewState }: MapProps) => {
