@@ -8,6 +8,7 @@ import { Map } from "../components/Map/Map";
 import { useGame } from "../hooks/useGame";
 import { PlayerForm } from "../components/PlayerForm/PlayerForm";
 import { ViewState } from "../page";
+import { QuestCounter } from "../components/QuestCounter/QuestCounter";
 
 export default function Room() {
   const game = useGame();
@@ -18,6 +19,8 @@ export default function Room() {
   const [viewState, setViewState] = useState<ViewState>("setup");
   const isHost = sessionStorage.getItem("host");
   const gameStart = sessionStorage.getItem("game_start");
+  const [humanCount, setHumanCount] = useState(0);
+  const [vampireCount, setVampireCount] = useState(0);
 
   if (isHost) {
     console.log("i am host");
@@ -31,6 +34,7 @@ export default function Room() {
 
   return (
     <main className="flex min-h-svh flex-col items-center justify-center p-8">
+      <QuestCounter humanCount={humanCount} vampireCount={vampireCount} />
       <h1>VÄLKOMMEN</h1>
       <p>{roomCode}</p>
 
