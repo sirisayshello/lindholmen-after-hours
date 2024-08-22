@@ -1,15 +1,13 @@
 "use client";
 
-import { ViewState } from "@/app/page";
+import { useGame } from "@/app/hooks/useGame";
 import Image from "next/image";
-import { Popup } from "../Popup/Popup";
 import { useState } from "react";
+import { FinalQuest } from "../FinalQuest/FinalQuest";
 import { FirstQuest } from "../FirstQuest/FirstQuest";
 import { SecondQuest } from "../SecondQuest/SecondQuest";
-import { set } from "lodash";
+import { StartInformation } from "../StartInformation/StartInformation";
 import { ThirdQuest } from "../ThirdQuest/ThirdQuest";
-import { useGame } from "@/app/hooks/useGame";
-import { FinalQuest } from "../FinalQuest/FinalQuest";
 
 export type PopupProps = {
   isVisible: boolean;
@@ -34,7 +32,7 @@ export const Map = () => {
 
   return (
     <>
-      <Popup isVisible={isVisible} setIsVisible={setIsVisible} />
+      <StartInformation isVisible={isVisible} setIsVisible={setIsVisible} />
       <FirstQuest firstQIsVisible={questVisible === "first"} close={close} />
       <SecondQuest secondQIsVisible={questVisible === "second"} close={close} />
       <ThirdQuest thirdQIsVisible={questVisible === "third"} close={close} />

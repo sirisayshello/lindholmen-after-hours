@@ -1,5 +1,6 @@
 "use client";
 
+import { Happening } from "@/app/components/Happening/Happening";
 import { Map } from "@/app/components/Map/Map";
 import { QuestCounter } from "@/app/components/QuestCounter/QuestCounter";
 import { Timer } from "@/app/components/Timer/Timer";
@@ -18,6 +19,9 @@ export default function Play() {
   }
   return (
     <main className="flex min-h-svh flex-col items-center p-8 gap-12">
+      {game.happening && (
+        <Happening close={() => game.setHappening(undefined)} />
+      )}
       <QuestCounter
         humanCount={game.humanScore}
         vampireCount={game.vampireScore}

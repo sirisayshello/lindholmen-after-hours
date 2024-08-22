@@ -9,6 +9,8 @@ import uniqBy from "lodash/uniqBy";
 
 export type Teams = "Vampyrerna" | "Vampyrjägarna";
 
+export type Happening = "blodmåne";
+
 type CompletedQuest = { id: number };
 
 export type Player = {
@@ -35,6 +37,9 @@ type GameContext = {
   hasCompletedQuest: (id: number) => boolean;
   endGame: (team: Teams) => void;
   winner: Teams | undefined;
+  triggerHappening: (happening: Happening) => void;
+  happening: Happening | undefined;
+  setHappening: (value: Happening | undefined) => void;
 };
 
 const GameContext = createContext<GameContext>({
@@ -69,6 +74,13 @@ const GameContext = createContext<GameContext>({
     throw new Error("Function not implemented.");
   },
   winner: undefined,
+  triggerHappening: function (happening: Happening): void {
+    throw new Error("Function not implemented.");
+  },
+  happening: undefined,
+  setHappening: function (happening: Happening | undefined): void {
+    throw new Error("Function not implemented.");
+  },
 });
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
@@ -83,6 +95,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   >([]);
   const [playerTeam, setPlayerTeam] = useState<Teams>();
   const [winner, setWinner] = useState<Teams>();
+  const [happening, setHappening] = useState<Happening | undefined>("blodmåne");
 
   useEffect(() => {
     if (window !== undefined) {
@@ -125,6 +138,10 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     setWinner(team);
   };
 
+  const triggerHappening = (happening: Happening) => {
+    setHappening(happening);
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -143,6 +160,9 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
         hasCompletedQuest,
         endGame,
         winner,
+        triggerHappening,
+        happening,
+        setHappening,
       }}
     >
       {children}

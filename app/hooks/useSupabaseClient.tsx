@@ -1,6 +1,6 @@
 import { supabase } from "@/supabase/client";
 import { useRouter } from "next/navigation";
-import { Player, Teams, useGame } from "./useGame";
+import { Happening, Player, Teams, useGame } from "./useGame";
 
 type CompletedQuestPayload = {
   team: Teams;
@@ -22,12 +22,14 @@ type GamePlayPayload = {
 type EndGamePayload = {
   team: Teams;
 };
+type HappeningPayload = {
+  happening: Happening;
+};
 
 export const useSupabaseClient = (roomId: string) => {
   const game = useGame();
   const router = useRouter();
 
-  // Join a room/topic. Can be anything except for 'realtime'.
   const channel = supabase.channel(roomId);
 
   function questCompleted(payload: CompletedQuestPayload) {
@@ -66,9 +68,12 @@ export const useSupabaseClient = (roomId: string) => {
     }
   }
 
-  // Subscribe to the Channel
-  channel
+  function handleHappening(payload: HappeningPayload) {
+    game.triggerHappening(payload.happening);
+  }
 
+  // Setting up listeners
+  channel
     .on("broadcast", { event: "completed_quest" }, (payload) =>
       questCompleted(payload.payload as unknown as CompletedQuestPayload)
     )
@@ -84,14 +89,14 @@ export const useSupabaseClient = (roomId: string) => {
     .on("broadcast", { event: "end_game" }, (payload) =>
       endGameHandler(payload.payload as unknown as EndGamePayload)
     )
-
+    .on("broadcast", { event: "happening" }, (payload) =>
+      handleHappening(payload.payload as unknown as HappeningPayload)
+    )
     .subscribe((status) => {
       if (status !== "SUBSCRIBED") {
         return null;
       }
     });
-
-  // Join a room/topic. Can be anything except for 'realtime'.
 
   const sendJoined = (name: string, team: Teams) => {
     game.setPlayerTeam(team);
@@ -103,6 +108,10 @@ export const useSupabaseClient = (roomId: string) => {
   };
 
   const completeQuest = (team: Teams, questId: number) => {
+    if (team === "Vampyrerna" && game.vampireScore === 0) {
+      sendHappening("blodmåne");
+    }
+
     game.completeQuest(team, questId);
     channel.send({
       type: "broadcast",
@@ -128,6 +137,14 @@ export const useSupabaseClient = (roomId: string) => {
       type: "broadcast",
       event: "end_game",
       payload: { team: winningTeam },
+    });
+  };
+
+  const sendHappening = (happening: Happening) => {
+    channel.send({
+      type: "broadcast",
+      event: "happening",
+      payload: { happening },
     });
   };
 
