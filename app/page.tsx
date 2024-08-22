@@ -10,7 +10,10 @@ export type ViewState =
   | "landing"
   | "difficultySetting"
   | "inputHostName"
-  | "joinSetup";
+  | "joinSetup"
+  | "setup"
+  | "map"
+  | "lobby";
 
 export default function Home() {
   const router = useRouter();
