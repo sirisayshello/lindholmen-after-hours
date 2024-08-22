@@ -95,7 +95,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   >([]);
   const [playerTeam, setPlayerTeam] = useState<Teams>();
   const [winner, setWinner] = useState<Teams>();
-  const [happening, setHappening] = useState<Happening | undefined>("blodmåne");
+  const [happening, setHappening] = useState<Happening | undefined>();
 
   useEffect(() => {
     if (window !== undefined) {
