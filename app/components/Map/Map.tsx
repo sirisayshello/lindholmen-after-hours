@@ -14,9 +14,14 @@ export type PopupProps = {
   isVisible: boolean;
   setIsVisible: (value: boolean) => void;
 };
+export type FirstQProps = {
+  firstQIsVisible: boolean;
+  setFirstQIsVisible: (value: boolean) => void;
+};
 
 export const Map = ({ viewState, setViewState }: MapProps) => {
   const [isVisible, setIsVisible] = useState(true);
+  const [firstQIsVisible, setFirstQIsVisible] = useState(false);
 
   return (
     <>
