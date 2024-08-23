@@ -9,7 +9,7 @@ export const StartInformation = ({ isVisible, setIsVisible }: PopupProps) => {
 
   return (
     <Popup close={() => setIsVisible(false)}>
-      <h1 className="text-center text-3xl py-3">Hitta Kristallen</h1>
+      <h1 className="text-center text-3xl">Hitta Kristallen</h1>
       <div className="px-5">
         <p>
           Du står nu där historien började. En kvaddad blodbuss utan ett spår av

@@ -23,7 +23,7 @@ export default function Play() {
       confettiNumber: 30,
     });
     return (
-      <main className="flex min-h-svh flex-col items-center p-8 gap-12">
+      <main className="flex min-h-svh flex-col items-center p-8 py-8 gap-12">
         <div className="flex flex-col justify-center items-center gap-4 pt-9">
           <Image src="/crystal.png" height={171} width={161} alt="kristall" />
           <h1 className="text-4xl font-extrabold">WOHO!</h1>

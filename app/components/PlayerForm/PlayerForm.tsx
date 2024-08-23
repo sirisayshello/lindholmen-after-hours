@@ -145,7 +145,7 @@ export const PlayerForm = ({
                 />
               </div>
             </div>
-            <div className="w-full flex flex-row justify-end pt-4">
+            <div className="w-full flex flex-row justify-end py-4">
               <Button onClick={joinGame} text="Fortsätt" />
             </div>
           </div>
