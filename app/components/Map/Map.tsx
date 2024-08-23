@@ -44,9 +44,21 @@ export const Map = () => {
         close={close}
         setResponseVisible={setResponseVisible}
       />
-      <SecondQuest secondQIsVisible={questVisible === "second"} close={close} />
-      <ThirdQuest thirdQIsVisible={questVisible === "third"} close={close} />
-      <FinalQuest finalQIsVisible={questVisible === "final"} close={close} />
+      <SecondQuest
+        secondQIsVisible={questVisible === "second"}
+        close={close}
+        setResponseVisible={setResponseVisible}
+      />
+      <ThirdQuest
+        thirdQIsVisible={questVisible === "third"}
+        close={close}
+        setResponseVisible={setResponseVisible}
+      />
+      <FinalQuest
+        finalQIsVisible={questVisible === "final"}
+        close={close}
+        setResponseVisible={setResponseVisible}
+      />
       <div className="w-full max-w-xl flex flex-col gap-8 items-center font-mono text-sm">
         <div className="relative">
           {responseVisible === "good" && (
@@ -62,7 +74,7 @@ export const Map = () => {
               <Image src="/bad.png" height={247} width={196} alt="tummen ner" />
             </Popup>
           )}
-          {responseVisible === "crystal" && (
+          {/* {responseVisible === "crystal" && (
             <Popup close={closeResponse}>
               <h1>Bra Jobbat!</h1>
               <p className="text-center">Du har hittat alla nycklar</p>
@@ -71,7 +83,7 @@ export const Map = () => {
                 Du kan nu se kristallen på kartan, ta dig dit så fort du kan!
               </p>
             </Popup>
-          )}
+          )} */}
           <Image
             src="/map.png"
             width={300}
@@ -118,16 +130,31 @@ export const Map = () => {
             />
           )}
           {showFinalQuest && (
-            <Image
-              onClick={() => {
-                setQuestVisible("final");
-              }}
-              className="absolute top-[120px] right-[10px]"
-              src="/pin.svg"
-              width={25}
-              height={25}
-              alt="pin of final location"
-            />
+            <>
+              {/* <Popup >
+                <h1>Bra Jobbat!</h1>
+                <p className="text-center">Du har hittat alla nycklar</p>
+                <Image
+                  src="/bra.png"
+                  height={247}
+                  width={196}
+                  alt="tummen upp"
+                />
+                <p className="text-center">
+                  Du kan nu se kristallen på kartan, ta dig dit så fort du kan!
+                </p>
+              </Popup> */}
+              <Image
+                onClick={() => {
+                  setQuestVisible("final");
+                }}
+                className="absolute top-[120px] right-[10px]"
+                src="/pin.svg"
+                width={25}
+                height={25}
+                alt="pin of final location"
+              />
+            </>
           )}
         </div>
         <Image

@@ -6,13 +6,19 @@ import { Button } from "../Button/Button";
 import { useRoomId } from "@/app/hooks/useRoomId";
 import { useSupabaseClient } from "@/app/hooks/useSupabaseClient";
 import { Popup } from "../Popup/Popup";
+import { Response } from "../Map/Map";
 
 type FinalQProps = {
+  setResponseVisible: (value: Response) => void;
   finalQIsVisible: boolean;
   close: () => void;
 };
 
-export const FinalQuest = ({ finalQIsVisible, close }: FinalQProps) => {
+export const FinalQuest = ({
+  finalQIsVisible,
+  close,
+  setResponseVisible,
+}: FinalQProps) => {
   const [finalAnswer, setFinalAnswer] = useState("");
   const answer = ["brun", "brunt"];
   const roomId = useRoomId();
@@ -21,8 +27,6 @@ export const FinalQuest = ({ finalQIsVisible, close }: FinalQProps) => {
 
   const checkFinalAnswer = () => {
     if (answer.includes(finalAnswer.toLowerCase())) {
-      console.log("correct");
-
       client.endGame();
     }
   };

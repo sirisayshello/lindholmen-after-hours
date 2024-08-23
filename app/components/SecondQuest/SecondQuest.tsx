@@ -7,13 +7,19 @@ import { useRoomId } from "@/app/hooks/useRoomId";
 import { useSupabaseClient } from "@/app/hooks/useSupabaseClient";
 import { useGame } from "@/app/hooks/useGame";
 import { Popup } from "../Popup/Popup";
+import { Response } from "../Map/Map";
 
 type SecondQProps = {
+  setResponseVisible: (value: Response) => void;
   secondQIsVisible: boolean;
   close: () => void;
 };
 
-export const SecondQuest = ({ secondQIsVisible, close }: SecondQProps) => {
+export const SecondQuest = ({
+  secondQIsVisible,
+  close,
+  setResponseVisible,
+}: SecondQProps) => {
   const [secondAnswer, setSecondAnswer] = useState("");
   const answer = "kackerlacka";
   const roomId = useRoomId();
@@ -24,6 +30,10 @@ export const SecondQuest = ({ secondQIsVisible, close }: SecondQProps) => {
     if (secondAnswer.toLowerCase() === answer) {
       client.completeQuest(game.playerTeam!, 2);
       close();
+      setResponseVisible("good");
+    } else {
+      close();
+      setResponseVisible("bad");
     }
   };
   if (!secondQIsVisible) return null;

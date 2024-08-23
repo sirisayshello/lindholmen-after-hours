@@ -7,13 +7,19 @@ import { useRoomId } from "@/app/hooks/useRoomId";
 import { useGame } from "@/app/hooks/useGame";
 import { useSupabaseClient } from "@/app/hooks/useSupabaseClient";
 import { Popup } from "../Popup/Popup";
+import { Response } from "../Map/Map";
 
 type ThirdQProps = {
+  setResponseVisible: (value: Response) => void;
   thirdQIsVisible: boolean;
   close: () => void;
 };
 
-export const ThirdQuest = ({ thirdQIsVisible, close }: ThirdQProps) => {
+export const ThirdQuest = ({
+  thirdQIsVisible,
+  close,
+  setResponseVisible,
+}: ThirdQProps) => {
   const [thirdAnswer, setThirdAnswer] = useState("");
   const answer = "blache";
   const roomId = useRoomId();
@@ -24,6 +30,10 @@ export const ThirdQuest = ({ thirdQIsVisible, close }: ThirdQProps) => {
     if (thirdAnswer.toLowerCase() === answer) {
       client.completeQuest(game.playerTeam!, 3);
       close();
+      setResponseVisible("good");
+    } else {
+      close();
+      setResponseVisible("bad");
     }
   };
   if (!thirdQIsVisible) return null;
