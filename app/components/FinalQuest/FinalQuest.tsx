@@ -28,6 +28,9 @@ export const FinalQuest = ({
   const checkFinalAnswer = () => {
     if (answer.includes(finalAnswer.toLowerCase())) {
       client.endGame();
+    } else {
+      close();
+      setResponseVisible("bad");
     }
   };
   if (!finalQIsVisible) return null;

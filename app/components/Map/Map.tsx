@@ -59,21 +59,21 @@ export const Map = () => {
         close={close}
         setResponseVisible={setResponseVisible}
       />
+      {responseVisible === "good" && (
+        <Popup close={closeResponse}>
+          <h1>Bra Jobbat!</h1>
+          <p className="text-center">Du har hittat en nyckel</p>
+          <Image src="/bra.png" height={247} width={196} alt="tummen upp" />
+        </Popup>
+      )}
+      {responseVisible === "bad" && (
+        <Popup close={closeResponse}>
+          <h1>Åh nej, försök igen!</h1>
+          <Image src="/bad.png" height={247} width={196} alt="tummen ner" />
+        </Popup>
+      )}
       <div className="w-full max-w-xl flex flex-col gap-8 items-center font-mono text-sm">
         <div className="relative">
-          {responseVisible === "good" && (
-            <Popup close={closeResponse}>
-              <h1>Bra Jobbat!</h1>
-              <p className="text-center">Du har hittat en nyckel</p>
-              <Image src="/bra.png" height={247} width={196} alt="tummen upp" />
-            </Popup>
-          )}
-          {responseVisible === "bad" && (
-            <Popup close={closeResponse}>
-              <h1>Åh nej, försök igen!</h1>
-              <Image src="/bad.png" height={247} width={196} alt="tummen ner" />
-            </Popup>
-          )}
           {/* {responseVisible === "crystal" && (
             <Popup close={closeResponse}>
               <h1>Bra Jobbat!</h1>
