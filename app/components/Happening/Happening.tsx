@@ -11,12 +11,7 @@ export const Happening = ({ close }: HappeningProps) => {
       <h1 className="w-full text-center text-3xl pt-3">Blodmåne!</h1>
 
       <div className="px-5">
-        <Image
-          src="/final_quest.jpeg"
-          width={281}
-          height={216}
-          alt="basen av en liten vit byggnad"
-        />
+        <Image src="/bloodmoon.jpeg" width={117} height={147} alt="jage" />
         <p>
           Nu kan vampyrerna gå på jakt och tillfångata EN spelare från
           motståndarlaget. 

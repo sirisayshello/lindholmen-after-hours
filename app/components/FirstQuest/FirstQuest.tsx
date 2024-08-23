@@ -7,13 +7,19 @@ import { useRoomId } from "@/app/hooks/useRoomId";
 import { useSupabaseClient } from "@/app/hooks/useSupabaseClient";
 import { Button } from "../Button/Button";
 import { Popup } from "../Popup/Popup";
+import { Response } from "../Map/Map";
 
 type FirstQProps = {
+  setResponseVisible: (value: Response) => void;
   firstQIsVisible: boolean;
   close: () => void;
 };
 
-export const FirstQuest = ({ firstQIsVisible, close }: FirstQProps) => {
+export const FirstQuest = ({
+  firstQIsVisible,
+  close,
+  setResponseVisible,
+}: FirstQProps) => {
   const [firstAnswer, setFirstAnswer] = useState("");
   const answer = "19800902";
   const roomId = useRoomId();
@@ -24,6 +30,10 @@ export const FirstQuest = ({ firstQIsVisible, close }: FirstQProps) => {
     if (firstAnswer === answer) {
       client.completeQuest(game.playerTeam!, 1);
       close();
+      setResponseVisible("good");
+    } else {
+      close();
+      setResponseVisible("bad");
     }
   };
   if (!firstQIsVisible) {

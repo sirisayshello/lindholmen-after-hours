@@ -8,17 +8,20 @@ import { FirstQuest } from "../FirstQuest/FirstQuest";
 import { SecondQuest } from "../SecondQuest/SecondQuest";
 import { StartInformation } from "../StartInformation/StartInformation";
 import { ThirdQuest } from "../ThirdQuest/ThirdQuest";
+import { Popup } from "../Popup/Popup";
 
 export type PopupProps = {
   isVisible: boolean;
   setIsVisible: (value: boolean) => void;
 };
 export type Quest = undefined | "first" | "second" | "third" | "final";
+export type Response = undefined | "good" | "bad" | "crystal";
 
 export const Map = () => {
   const game = useGame();
   const [isVisible, setIsVisible] = useState(true);
   const [questVisible, setQuestVisible] = useState<Quest>();
+  const [responseVisible, setResponseVisible] = useState<Response>();
 
   const completedFirstQuest = game.hasCompletedQuest(1);
   const completedSecondQuest = game.hasCompletedQuest(2);
@@ -29,16 +32,46 @@ export const Map = () => {
   const close = () => {
     setQuestVisible(undefined);
   };
+  const closeResponse = () => {
+    setResponseVisible(undefined);
+  };
 
   return (
     <>
       <StartInformation isVisible={isVisible} setIsVisible={setIsVisible} />
-      <FirstQuest firstQIsVisible={questVisible === "first"} close={close} />
+      <FirstQuest
+        firstQIsVisible={questVisible === "first"}
+        close={close}
+        setResponseVisible={setResponseVisible}
+      />
       <SecondQuest secondQIsVisible={questVisible === "second"} close={close} />
       <ThirdQuest thirdQIsVisible={questVisible === "third"} close={close} />
       <FinalQuest finalQIsVisible={questVisible === "final"} close={close} />
       <div className="w-full max-w-xl flex flex-col gap-8 items-center font-mono text-sm">
         <div className="relative">
+          {responseVisible === "good" && (
+            <Popup close={closeResponse}>
+              <h1>Bra Jobbat!</h1>
+              <p className="text-center">Du har hittat en nyckel</p>
+              <Image src="/bra.png" height={247} width={196} alt="tummen upp" />
+            </Popup>
+          )}
+          {responseVisible === "bad" && (
+            <Popup close={closeResponse}>
+              <h1>Åh nej, försök igen!</h1>
+              <Image src="/bad.png" height={247} width={196} alt="tummen ner" />
+            </Popup>
+          )}
+          {responseVisible === "crystal" && (
+            <Popup close={closeResponse}>
+              <h1>Bra Jobbat!</h1>
+              <p className="text-center">Du har hittat alla nycklar</p>
+              <Image src="/bra.png" height={247} width={196} alt="tummen upp" />
+              <p className="text-center">
+                Du kan nu se kristallen på kartan, ta dig dit så fort du kan!
+              </p>
+            </Popup>
+          )}
           <Image
             src="/map.png"
             width={300}
