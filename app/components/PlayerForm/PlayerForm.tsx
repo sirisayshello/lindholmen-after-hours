@@ -47,13 +47,13 @@ export const PlayerForm = ({
   return (
     <>
       {viewState === "setup" && (
-        <div className=" z-20">
-          <div className="flex flex-col">
+        <div className="z-20">
+          <div className="flex flex-col gap-4">
             <label className="text-center" htmlFor="name">
               Skriv in ditt namn
             </label>
             <input
-              className="text-black"
+              className="text-black w-full rounded-md"
               onChange={(e) => setName(e.target.value)}
               value={name}
               required
@@ -66,52 +66,75 @@ export const PlayerForm = ({
             <div className="flex flex-col justify-center">
               <h1 className="text-center text-3xl py-3">Välj lag</h1>
               {teamButton === "Vampyrjägarna" && (
-                <div className="flex flex-col justify-center items-center px-3">
+                <div className="flex flex-col justify-center items-center gap-4">
                   <Image
+                    className="rounded-md"
                     src="/human.png"
-                    width={160}
-                    height={204}
+                    width={140}
+                    height={184}
                     alt="Vampyrjägare"
                   />
-                  <p>
-                    Vigvatten är en myt. Det funkar lika bra med kranvatten, så
-                    länge man saltar ordentligt (gärna jodfritt). Det är sånt
-                    man vet när man är jägare.  Något som Joni också vet är att
-                    Mörka Dimmans Kristall nyligen stals och nu verkar förvaras
-                    någonstans på Lindholmen. Det där sabla vampyrgänget verkar
-                    visst planera för jordens undergång.  Vad de däremot inte
-                    har planerat för är Joni och hennes episka jägarkollektiv.
-                    De är mer än redo att inta natten – och rädda världen.
-                    Styrka: Smart. Avancerad teknisk utrustning. Svaghet: Låg
-                    metabolism.
-                  </p>
+                  <div className="flex flex-col gap-4">
+                    <p>
+                      Vigvatten är en myt. Det funkar lika bra med kranvatten,
+                      så länge man saltar ordentligt (gärna jodfritt). Det är
+                      sånt man vet när man är jägare.
+                    </p>{" "}
+                    <p>
+                      {" "}
+                      Något som Joni också vet är att Mörka Dimmans Kristall
+                      nyligen stals och nu verkar förvaras någonstans på
+                      Lindholmen. Det där sabla vampyrgänget verkar visst
+                      planera för jordens undergång.
+                    </p>
+                    <p>
+                      {" "}
+                      Vad de däremot inte har planerat för är Joni och hennes
+                      episka jägarkollektiv. De är mer än redo att inta natten –
+                      och rädda världen.{" "}
+                    </p>
+                    <p> Styrka: Smart. Avancerad teknisk utrustning. </p>{" "}
+                    <p>Svaghet: Låg metabolism.</p>
+                  </div>
                 </div>
               )}
               {teamButton === "Vampyrerna" && (
-                <div className="flex flex-col justify-center items-center px-3">
+                <div className="flex flex-col justify-center items-center gap-4">
                   <Image
                     src="/vampire.png"
                     width={160}
                     height={204}
                     alt="Vampyr"
                   />
-                  <p>
-                    Det var egentligen en vattentät plan. Sno Mörka Dimmans
-                    Kristall och sedan: världsherravälde. Men en förrädare måste
-                    ha infiltrerat Nardus gäng, för plötsligt var
-                    Vampyrstyrelsen dem hack i häl. Gänget flydde och slog till
-                    slut läger på Lindholmen. Nu behövde de en ordentlig fest.
-                    Så när Nardus hittade den där blodbussen la de plattan i
-                    mattan. Storslaget! Ja, förutom den lilla detaljen att
-                    Nardus inte längre kan komma ihåg vart han gömde den där
-                    kristallen. Nu är det bråttom. Vampyrerna måste hitta
-                    kristallen så fort solen går ner – för nu kryllar Lindholmen
-                    av jägare.  Styrka: Stark. Vassa tänder. Svaghet: Dålig
-                    impulskontroll.
-                  </p>
+                  <div className="flex flex-col gap-4">
+                    <p>
+                      Det var egentligen en vattentät plan. Sno Mörka Dimmans
+                      Kristall och sedan: världsherravälde. Men en förrädare
+                      måste ha infiltrerat Nardus gäng, för plötsligt var
+                      Vampyrstyrelsen dem hack i häl.
+                    </p>
+                    <p>
+                      {" "}
+                      Gänget flydde och slog till slut läger på Lindholmen. Nu
+                      behövde de en ordentlig fest. Så när Nardus hittade den
+                      där blodbussen la de plattan i mattan.
+                    </p>
+                    <p>
+                      {" "}
+                      Storslaget! Ja, förutom den lilla detaljen att Nardus inte
+                      längre kan komma ihåg vart han gömde den där kristallen.
+                    </p>
+                    <p>
+                      {" "}
+                      Nu är det bråttom. Vampyrerna måste hitta kristallen så
+                      fort solen går ner – för nu kryllar Lindholmen av jägare.
+                    </p>
+                    <p>Styrka: Stark. Vassa tänder.</p>
+                    <p> Svaghet: Dålig impulskontroll.</p>
+                  </div>
                 </div>
               )}
-              <div className="flex flex-row w-full justify-around pt-4">
+              <div className="flex flex-row w-full justify-between pt-4">
                 <Button
                   onClick={() => handleButtonClick("Vampyrjägarna")}
                   text="Vampyrjägare"

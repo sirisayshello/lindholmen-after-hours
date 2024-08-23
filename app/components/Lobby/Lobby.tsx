@@ -13,7 +13,7 @@ type LobbyProps = {
 const PlayerCard = ({ player }: { player: Player }) => {
   const src = player.team === "Vampyrerna" ? "/vampire.png" : "/human.png";
   return (
-    <div className="flex">
+    <div className="flex gap-2">
       {player.isHost && <p>crown</p>}
       <Image src={src} width={44} height={56} alt="Vampyrjägare" />
       {player.name}
@@ -27,10 +27,12 @@ export const Lobby = ({ viewState, roomCode }: LobbyProps) => {
   return (
     <>
       {viewState === "lobby" && (
-        <div>
-          <h1>Spelkod: {roomCode}</h1>
-          <h3>Inväntar spelare...</h3>
+        <div className="flex flex-col gap-8 items-start">
           <div>
+            <h1 className="text-2xl font-bold">Spelkod: {roomCode}</h1>
+            <h3 className="text-xl">Inväntar spelare...</h3>
+          </div>
+          <div className="flex flex-col gap-4">
             {game.players.map((player, index) => (
               <PlayerCard
                 player={player}
