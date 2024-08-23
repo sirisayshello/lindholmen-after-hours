@@ -3,7 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
+// ${inter.className}
 
 export const metadata: Metadata = {
   title: "Blodholmen",
@@ -17,9 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`text-white bg-[url('/background.png')] ${inter.className} bg-cover`}
-      >
+      <body className={`text-white bg-[url('/background.png')]  bg-cover`}>
         <Providers>{children}</Providers>
       </body>
     </html>

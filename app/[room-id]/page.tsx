@@ -15,7 +15,7 @@ export default function Room() {
   const [viewState, setViewState] = useState<ViewState>("setup");
 
   return (
-    <main className="flex min-h-svh flex-col items-center justify-center p-8">
+    <main className="flex min-h-svh flex-col items-center px-8 pt-12">
       <PlayerForm
         viewState={viewState}
         setViewState={setViewState}

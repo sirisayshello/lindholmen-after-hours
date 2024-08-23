@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { GameIntro } from "./components/GameIntro/GameIntro";
 import { DifficultySetting } from "./components/DifficultySetting/DifficultySetting";
-import { text } from "stream/consumers";
 
 export type ViewState =
   | "landing"
@@ -30,19 +29,19 @@ export default function Home() {
             viewState={viewState}
             setViewState={setViewState}
           />
-          <Button text="fortsätt" onClick={() => setViewState("choose")} />
+          <Button text="Fortsätt" onClick={() => setViewState("choose")} />
         </>
       )}
 
       {viewState === "choose" && (
         <div className="flex flex-col gap-9">
           <Button
-            className="px-9"
+            className="py-4 w-36"
             onClick={() => router.push("/create")}
             text="Skapa spel"
           />
           <Button
-            className="px-9"
+            className="py-4 w-36"
             onClick={() => router.push("/join")}
             text="Joina spel"
           />
