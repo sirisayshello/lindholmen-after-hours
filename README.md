@@ -2,6 +2,10 @@
 
 This project was created as a group assignment for "Sammanslaget". Over the course of four days, students from Yrgos programs in Web Development, UX Design, and Screenwriting came together to create this application.
 
+The tools used in this project are Next.js, TypeScript, and Supabase Realtime.
+
+## Introduction
+
 Blodholmen was created with the goal of designing an interactive experience in the physical space at Lindholmen that users can engage with using a web application on their smartphones. Through missions, physical activation, and a bit of role-playing, we created a multiplayer game where users can explore the Lindholmen district.
 
 Wanna play?  
