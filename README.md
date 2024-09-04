@@ -1,4 +1,4 @@
-## Blodholmen 
+# Blodholmen 
 
 This project was created as a group assignment for "Sammanslaget". Over the course of four days, students from Yrgos programs in Web Development, UX Design, and Screenwriting came together to create this application.
 
