@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Blodholmen 
 
-## Getting Started
+This project was created as a group assignment for "Sammanslaget". Over the course of four days, students from Yrgos programs in Web Development, UX Design, and Screenwriting came together to create this application.
 
-First, run the development server:
+Blodholmen was created with the goal of designing an interactive experience in the physical space at Lindholmen that users can engage with using a web application on their smartphones. Through missions, physical activation, and a bit of role-playing, we created a multiplayer game where users can explore the Lindholmen district.
+
+Wanna play?  
+Just bring a group of friends and head to Lindholmen, go to [Blodholmen](https://blodholmen.vercel.app/), create your room and press "Start Game" — but hey, watch out for the blood moon...
+
+## Installation
+
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Due to the short timeframe, the site is built solely for mobile devices. It will function, but it may not look very polished.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
